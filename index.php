@@ -3,11 +3,16 @@ session_start();
 if (!isset($_SESSION['logged']))
     $_SESSION['logged'] = false;
 
-if(isset($_POST["logout"]))
-    $_SESSION['logged'] = false;
-
-    if(isset($_POST["login"]))
-    $_SESSION['logged'] = true;
+if (isset($_POST["logout"])) {
+    // $_SESSION['logged'] = false;
+    session_unset();
+    session_destroy();
+    header("Location: index.php");
+    die();
+}
+if (isset($_POST["login"])) {
+$_SESSION['logged'] = true;
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -27,9 +32,8 @@ if(isset($_POST["logout"]))
         ?>
             <button type="submit" name="logout">Logout</button>
         <?php
-        }
-        else{
-            ?>
+        } else {
+        ?>
             <button type="submit" name="login">Login</button>
         <?php
         }
